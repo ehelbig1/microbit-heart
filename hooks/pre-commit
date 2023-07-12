@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+cargo clippy --target thumbv7em-none-eabihf -- \
+    -D clippy::single-component-path-imports \
+    -D clippy::useless_format
+
+cargo outdated -w --exit-code 1 --ignore rtt-target
+
+cargo audit
+
+cargo fmt
+
+git add .
